@@ -2,6 +2,7 @@ class ProductModel {
   final String name;
   final double price;
   final String description;
+  // TODO: add id, category, image, isPiece
 
   ProductModel(
       {required this.name, required this.price, required this.description});

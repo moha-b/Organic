@@ -27,9 +27,9 @@ class NavigationHelper {
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case AppRoute.LANDING_PAGE:
+      case AppRoute.DASHBOARD:
         return MaterialPageRoute(
-          builder: (context) => WebView(),
+          builder: (context) => DashboardView(),
         );
       case AppRoute.ADD_PRODUCT:
         return MaterialPageRoute(

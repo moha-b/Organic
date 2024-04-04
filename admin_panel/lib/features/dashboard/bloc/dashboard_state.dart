@@ -1,4 +1,4 @@
-part of 'bloc_bloc.dart';
+part of 'dashboard_bloc.dart';
 
 sealed class LandingState extends Equatable {
   const LandingState();

@@ -1,5 +1,5 @@
 import 'package:admin_panel/core/navigation/navigation.dart';
-import 'package:admin_panel/features/landing_page/bloc/bloc_bloc.dart';
+import 'package:admin_panel/features/dashboard/bloc/dashboard_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -61,11 +61,11 @@ class _AddProductViewState extends State<AddProductView> {
                       price: price,
                       description: description,
                     );
-                    context.read<LandingBloc>().add(AddProduct(product));
+                    context.read<DashboardBloc>().add(AddProduct(product));
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Product added successfully')),
                     );
-                    context.read<LandingBloc>().add(ViewAllProducts());
+                    context.read<DashboardBloc>().add(ViewAllProducts());
                     NavigationHelper.goBack();
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

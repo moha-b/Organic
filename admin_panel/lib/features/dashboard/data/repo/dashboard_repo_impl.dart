@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:admin_panel/core/firebase/firebase.dart';
 import 'package:admin_panel/core/network/network.dart';
-import 'package:admin_panel/features/landing_page/data/models/product_model.dart';
-import 'package:admin_panel/features/landing_page/data/repo/langing_repo.dart';
+import 'package:admin_panel/features/dashboard/data/models/product_model.dart';
+import 'package:admin_panel/features/dashboard/data/repo/dashboard_repo.dart';
 import 'package:fpdart/src/either.dart';
 
-class LandingRepoImpl extends LandingRepository {
+class DashboardRepoImpl extends DashboardRepository {
   @override
   Future addProduct(ProductModel product) async {
     try {

@@ -2,15 +2,15 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../data/models/product_model.dart';
-import '../data/repo/langing_repo.dart';
+import '../data/repo/dashboard_repo.dart';
 
-part 'bloc_event.dart';
-part 'bloc_state.dart';
+part 'dashboard_event.dart';
+part 'dashboard_state.dart';
 
-class LandingBloc extends Bloc<Event, LandingState> {
-  final LandingRepository landingRepository;
+class DashboardBloc extends Bloc<Event, LandingState> {
+  final DashboardRepository landingRepository;
 
-  LandingBloc(this.landingRepository) : super(LandingInitial()) {
+  DashboardBloc(this.landingRepository) : super(LandingInitial()) {
     on<AddProduct>((event, emit) async {
       emit(LandingInitial());
       try {
