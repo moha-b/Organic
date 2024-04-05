@@ -19,13 +19,13 @@ class ResponsiveGridView extends StatelessWidget {
       scrollDirection: Axis.vertical,
       itemCount: products.length,
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return Card(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(products[index].name),
+              Text(products[index].name!),
               Text('\$${products[index].price.toString()}'),
             ],
           ),

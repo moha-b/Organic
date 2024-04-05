@@ -1,11 +1,14 @@
 class ProductModel {
-  final String name;
-  final double price;
-  final String description;
-  // TODO: add id, category, image, isPiece
+  String? name;
+  double? price;
+  String? description;
+  // TODO: add id, category, image, created time
 
-  ProductModel(
-      {required this.name, required this.price, required this.description});
+  ProductModel({
+    this.name,
+    this.price,
+    this.description,
+  });
 
   factory ProductModel.fromMap(Map<String, dynamic> data) {
     return ProductModel(

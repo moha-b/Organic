@@ -1,5 +1,6 @@
-import 'package:admin_panel/core/navigation/navigation.dart';
+import 'package:admin_panel/core/resources/resources.dart';
 import 'package:admin_panel/features/dashboard/bloc/dashboard_bloc.dart';
+import 'package:admin_panel/features/dashboard/view/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,68 +17,46 @@ class _AddProductViewState extends State<AddProductView> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-
+  ProductType? selectedType;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Product'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              controller: _nameController,
-              decoration: InputDecoration(labelText: 'Name'),
+            ResponsiveView(
+              webView: ProductFormWebView(
+                name: _nameController,
+                price: _priceController,
+                description: _descriptionController,
+                selectedType: selectedType,
+              ),
+              tabletView: ProductFormWebView(
+                name: _nameController,
+                price: _priceController,
+                description: _descriptionController,
+                selectedType: selectedType,
+              ),
+              mobileView: ProductFormMobileView(
+                name: _nameController,
+                price: _priceController,
+                description: _descriptionController,
+                selectedType: selectedType,
+              ),
             ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _priceController,
-              decoration: InputDecoration(labelText: 'Price'),
-              keyboardType: TextInputType.number,
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Description'),
-              maxLines: 3,
-            ),
-            SizedBox(height: 16.0),
+            SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                final name = _nameController.text;
-                final priceText = _priceController.text;
-                final description = _descriptionController.text;
-
-                if (name.isNotEmpty &&
-                    priceText.isNotEmpty &&
-                    description.isNotEmpty) {
-                  final price = double.tryParse(priceText);
-                  if (price != null) {
-                    final product = ProductModel(
-                      name: name,
-                      price: price,
-                      description: description,
-                    );
-                    context.read<DashboardBloc>().add(AddProduct(product));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Product added successfully')),
-                    );
-                    context.read<DashboardBloc>().add(ViewAllProducts());
-                    NavigationHelper.goBack();
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Invalid price')),
-                    );
-                  }
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Please fill in all fields')),
-                  );
-                }
-              },
+              onPressed: () => context.read<DashboardBloc>().add(AddProduct(
+                    ProductModel(
+                      name: _nameController.text,
+                      price: double.tryParse(_priceController.text),
+                      description: _descriptionController.text,
+                    ),
+                  )),
               child: Text('Add Product'),
             ),
           ],

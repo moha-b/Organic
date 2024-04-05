@@ -1,18 +1,42 @@
-import 'dart:developer';
-
 import 'package:admin_panel/core/firebase/firebase.dart';
+import 'package:admin_panel/core/navigation/navigation.dart';
 import 'package:admin_panel/core/network/network.dart';
 import 'package:admin_panel/features/dashboard/data/models/product_model.dart';
 import 'package:admin_panel/features/dashboard/data/repo/dashboard_repo.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/src/either.dart';
+
+import '../../bloc/dashboard_bloc.dart';
 
 class DashboardRepoImpl extends DashboardRepository {
   @override
   Future addProduct(ProductModel product) async {
     try {
-      await FirestoreService.instance.addProduct(product.toMap());
+      if (product.name!.isNotEmpty &&
+          product.description!.isNotEmpty &&
+          product.price != null &&
+          product.price! >= 0) {
+        await FirestoreService.instance.addProduct(product.toMap());
+        ScaffoldMessenger.of(NavigationHelper.navigatorKey.currentContext!)
+            .showSnackBar(
+          const SnackBar(content: Text('Product added successfully')),
+        );
+        NavigationHelper.navigatorKey.currentContext!
+            .read<DashboardBloc>()
+            .add(ViewAllProducts());
+        NavigationHelper.goBack();
+      } else {
+        ScaffoldMessenger.of(NavigationHelper.navigatorKey.currentContext!)
+            .showSnackBar(
+          const SnackBar(content: Text('Please fill in all fields correctly')),
+        );
+      }
     } catch (e) {
-      log(e.toString(), name: "LandingRepoImpl");
+      ScaffoldMessenger.of(NavigationHelper.navigatorKey.currentContext!)
+          .showSnackBar(
+        SnackBar(content: Text('Failed to add product: $e')),
+      );
     }
   }
 

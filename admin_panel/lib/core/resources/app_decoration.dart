@@ -1,5 +1,8 @@
 part of 'resources.dart';
 
 abstract class AppDecoration {
-  static BoxDecoration ROUNDEDBORDER() => BoxDecoration();
+  static InputDecoration ROUNDEDBORDER(String label) => InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(),
+      );
 }
