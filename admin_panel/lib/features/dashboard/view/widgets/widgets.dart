@@ -1,5 +1,9 @@
+import 'package:admin_panel/core/navigation/navigation.dart';
+import 'package:admin_panel/features/dashboard/bloc/dashboard_bloc.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 
 import '../../../../core/resources/resources.dart';
 import '../../data/models/product_model.dart';

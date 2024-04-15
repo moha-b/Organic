@@ -32,8 +32,10 @@ class NavigationHelper {
           builder: (context) => DashboardView(),
         );
       case AppRoute.ADD_PRODUCT:
+        var product = settings.arguments as Map<String, dynamic>?;
         return MaterialPageRoute(
-          builder: (context) => AddProductView(),
+          builder: (context) =>
+              ProductDetailsView(product: product?['product']),
         );
       // Access the arguments from the map
       // final description = (settings.arguments as Map<String, dynamic>)['description'];

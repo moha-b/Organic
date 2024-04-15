@@ -17,7 +17,7 @@ class DashboardRepoImpl extends DashboardRepository {
           product.description!.isNotEmpty &&
           product.price != null &&
           product.price! >= 0) {
-        await FirestoreService.instance.addProduct(product.toMap());
+        await FirestoreService.instance.addProduct(product);
         ScaffoldMessenger.of(NavigationHelper.navigatorKey.currentContext!)
             .showSnackBar(
           const SnackBar(content: Text('Product added successfully')),
@@ -49,5 +49,44 @@ class DashboardRepoImpl extends DashboardRepository {
     } catch (e) {
       return left(ErrorHandler.handle(e).failure!);
     }
+  }
+
+  @override
+  Future<void> editProduct(ProductModel product) async {
+    try {
+      if (product.name!.isNotEmpty &&
+          product.description!.isNotEmpty &&
+          product.price != null &&
+          product.price! >= 0) {
+        await FirestoreService.instance
+            .editProduct(product.id.toString(), product);
+        ScaffoldMessenger.of(NavigationHelper.navigatorKey.currentContext!)
+            .showSnackBar(
+          const SnackBar(content: Text('Product edited successfully')),
+        );
+        NavigationHelper.navigatorKey.currentContext!
+            .read<DashboardBloc>()
+            .add(ViewAllProducts());
+        NavigationHelper.goBack();
+      } else {
+        ScaffoldMessenger.of(NavigationHelper.navigatorKey.currentContext!)
+            .showSnackBar(
+          const SnackBar(content: Text('Please fill in all fields correctly')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(NavigationHelper.navigatorKey.currentContext!)
+          .showSnackBar(
+        SnackBar(content: Text('Failed to edit product: $e')),
+      );
+    }
+  }
+
+  @override
+  Future deleteProduct(String productId) async {
+    await FirestoreService.instance.deleteProduct(productId);
+    ScaffoldMessenger.of(NavigationHelper.navigatorKey.currentContext!)
+        .showSnackBar(
+            const SnackBar(content: Text('Product Deleted successfully')));
   }
 }

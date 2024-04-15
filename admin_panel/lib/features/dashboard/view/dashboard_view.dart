@@ -4,6 +4,7 @@ import 'package:admin_panel/features/dashboard/bloc/dashboard_bloc.dart';
 import 'package:admin_panel/features/dashboard/view/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 
 import '../../../core/common/common.dart';
 
@@ -15,9 +16,9 @@ class DashboardView extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => NavigationHelper.navigateTo(AppRoute.ADD_PRODUCT),
-        child: const Icon(Icons.add),
+        child: const Icon(IconsaxPlusLinear.additem),
       ),
-      body: BlocBuilder<DashboardBloc, LandingState>(
+      body: BlocBuilder<DashboardBloc, DashboardState>(
         builder: (context, state) {
           if (state is LandingInitial) {
             return const LoadingWidget();
@@ -40,8 +41,12 @@ class DashboardView extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      ResponsiveGridView(
-                          products: state.products, crossAxisCount: 6),
+                      state.products.isNotEmpty
+                          ? ResponsiveGridView(
+                              products: state.products, crossAxisCount: 6)
+                          : const Center(
+                              child: Text("No Data Yet"),
+                            ),
                     ],
                   ),
                 ),

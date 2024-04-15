@@ -1,15 +1,15 @@
 part of 'dashboard_bloc.dart';
 
-sealed class LandingState extends Equatable {
-  const LandingState();
+sealed class DashboardState extends Equatable {
+  const DashboardState();
 }
 
-final class LandingInitial extends LandingState {
+final class LandingInitial extends DashboardState {
   @override
   List<Object> get props => [];
 }
 
-final class LandingLoaded extends LandingState {
+final class LandingLoaded extends DashboardState {
   final List<ProductModel> products;
 
   const LandingLoaded(this.products);
@@ -18,7 +18,7 @@ final class LandingLoaded extends LandingState {
   List<Object?> get props => [products];
 }
 
-final class LandingError extends LandingState {
+final class LandingError extends DashboardState {
   final String message;
 
   const LandingError(this.message);
@@ -27,7 +27,7 @@ final class LandingError extends LandingState {
   List<Object?> get props => [message];
 }
 
-final class LandingAddProduct extends LandingState {
+final class LandingAddProduct extends DashboardState {
   @override
   List<Object> get props => [];
 }

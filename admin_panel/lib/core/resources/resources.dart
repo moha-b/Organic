@@ -1,3 +1,4 @@
+import 'package:admin_panel/core/extensions/breakpoint_extension.dart';
 import 'package:flutter/material.dart';
 
 part 'app_colors.dart';

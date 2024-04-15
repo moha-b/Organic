@@ -7,14 +7,14 @@ import '../data/repo/dashboard_repo.dart';
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';
 
-class DashboardBloc extends Bloc<Event, LandingState> {
-  final DashboardRepository landingRepository;
+class DashboardBloc extends Bloc<Event, DashboardState> {
+  final DashboardRepository dashboardRepository;
 
-  DashboardBloc(this.landingRepository) : super(LandingInitial()) {
+  DashboardBloc(this.dashboardRepository) : super(LandingInitial()) {
     on<AddProduct>((event, emit) async {
       emit(LandingInitial());
       try {
-        await landingRepository.addProduct(event.product);
+        await dashboardRepository.addProduct(event.product);
         emit(LandingInitial());
       } catch (e) {
         emit(LandingError('Failed to add product: $e'));
@@ -24,13 +24,31 @@ class DashboardBloc extends Bloc<Event, LandingState> {
     on<ViewAllProducts>((event, emit) async {
       emit(LandingInitial());
       try {
-        var result = await landingRepository.getProducts();
+        var result = await dashboardRepository.getProducts();
         result.fold(
           (failure) => emit(LandingError(failure.message)),
           (products) => emit(LandingLoaded(products)),
         );
       } catch (e) {
-        emit(LandingError('Failed to add product: $e'));
+        emit(LandingError('Failed to View product: $e'));
+      }
+    });
+    on<EditProduct>((event, emit) async {
+      emit(LandingInitial());
+      try {
+        await dashboardRepository.editProduct(event.product);
+        emit(LandingInitial());
+      } catch (e) {
+        emit(LandingError('Failed to edit product: $e'));
+      }
+    });
+
+    on<DeleteProduct>((event, emit) async {
+      emit(LandingInitial());
+      try {
+        await dashboardRepository.deleteProduct(event.productId);
+      } catch (e) {
+        emit(LandingError('Failed to delete product: $e'));
       }
     });
   }

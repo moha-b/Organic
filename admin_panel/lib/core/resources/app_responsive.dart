@@ -16,9 +16,9 @@ class ResponsiveView extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth < 500) {
+        if (constraints.isMobile) {
           return mobileView ?? Text("data");
-        } else if (constraints.maxWidth < 1024) {
+        } else if (constraints.isTablet) {
           return tabletView ?? Text("data");
         } else {
           return webView ?? Text("data");
