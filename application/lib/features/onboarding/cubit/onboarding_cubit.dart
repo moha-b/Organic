@@ -14,6 +14,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   int currentPage = 1;
   void onPageChanged(int value) {
     currentPage = value;
+    emit(OnboardingState());
   }
 
   void nextPage() {
@@ -23,8 +24,9 @@ class OnboardingCubit extends Cubit<OnboardingState> {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
+      emit(OnboardingState());
     } else {
-      NavigationHelper.navigateTo(AppRoute.LOGIN, delete: true);
+      NavigationHelper.navigateTo(AppRoute.SIGN_IN, delete: true);
     }
   }
 }

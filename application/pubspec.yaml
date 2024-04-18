@@ -21,6 +21,8 @@ dependencies:
   cached_network_image: ^3.3.1
   fpdart: ^1.1.0
   get_it: ^7.6.8
+  flutter_staggered_grid_view: ^0.7.0
+  iconsax_plus: ^1.0.0
   image_picker: ^1.0.7
   cupertino_icons: ^1.0.6
 

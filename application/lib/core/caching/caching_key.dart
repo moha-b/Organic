@@ -6,5 +6,6 @@ class CachingKey {
   static const String USER_NAME = 'USER_NAME';
   static const String USER_PASSWORD = 'USER_PASSWORD';
   static const String IS_LOGIN = 'IS_LOGIN';
+  static const String ONBOARDING = 'ONBOARDING';
   static const String LANGUAGE = 'LANGUAGE';
 }

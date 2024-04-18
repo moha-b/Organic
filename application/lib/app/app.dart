@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:organic/core/caching/caching.dart';
 import 'package:organic/core/navigation/navigation.dart';
-import 'package:organic/features/onboarding/view/onboarding_view.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -13,7 +13,9 @@ class App extends StatelessWidget {
       navigatorObservers: [NavigationHelper.routeObserver],
       scaffoldMessengerKey: NavigationHelper.scaffoldState,
       onGenerateRoute: NavigationHelper.generateRoute,
-      home: OnboardingView(),
+      initialRoute: CachingHelper.instance!.readBoolean(CachingKey.ONBOARDING)
+          ? AppRoute.SIGN_IN
+          : AppRoute.ONBOARDING,
     );
   }
 }

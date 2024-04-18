@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:organic/core/caching/caching.dart';
 import 'package:organic/core/common/common.dart';
 import 'package:organic/core/utils/utils.dart';
 import 'package:organic/features/onboarding/cubit/onboarding_cubit.dart';
@@ -11,6 +12,7 @@ class OnboardingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CachingHelper.instance?.writeData(CachingKey.ONBOARDING, true);
     return BlocProvider(
       create: (context) => OnboardingCubit(),
       child: Scaffold(

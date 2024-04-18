@@ -32,9 +32,16 @@ class NavigationHelper {
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case AppRoute.LOGIN:
+      case AppRoute.ONBOARDING:
+        return MaterialPageRoute(builder: (context) => const OnboardingView());
+      case AppRoute.SIGN_IN:
+        return MaterialPageRoute(builder: (context) => const SignInView());
+      case AppRoute.SIGN_UP:
+        return MaterialPageRoute(builder: (context) => const SignUpView());
+      case AppRoute.HOME:
+        return MaterialPageRoute(builder: (_) => const HomeView());
       // Access the arguments from the map
-      // final description = (settings.arguments as Map<String, dynamic>)['description'];
+      // final description = (settings.arguments as Map<String, dynamic>?)['description'];
 
       // Uncomment the following lines if you want to pass arguments to the LoginView
       // return MaterialPageRoute(

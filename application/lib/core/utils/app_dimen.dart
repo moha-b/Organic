@@ -1,5 +1,8 @@
 part of 'utils.dart';
 
+final double _width = AppDimensions.width;
+final double _height = AppDimensions.height;
+
 /// A utility class for handling media queries in the application.
 class AppDimensions {
   /// Gets the current [MediaQueryData] instance from the navigator context.
@@ -16,13 +19,13 @@ class AppDimensions {
 /// An extension for handling dimensions with respect to the screen size for [double] values.
 extension DoubleDimensionUtilExtension on double {
   /// Converts the value to a width relative to the screen width.
-  double get w => AppDimensions.width * this / 100;
+  double get w => AppDimensions.width * this / _width;
 
   /// Converts the value to a height relative to the screen height.
-  double get h => AppDimensions.height * this / 100;
+  double get h => AppDimensions.height * this / _height;
 
-  /// Converts the value to its proportional value based on the screen width and height.
-  double get r => (AppDimensions.width + AppDimensions.height) * this / 2;
+  /// Converts the value to its proportional value based on a reference width of [_width] and height of [_height].
+  double get r => AppDimensions.width * this / 2 / (_width);
 
   /// Converts the value to a scaled pixel value based on the screen width.
   double get sp => AppDimensions._mediaQuery.textScaleFactor * this;
@@ -43,15 +46,15 @@ extension DoubleEdgeInsetsExtension on double {
 /// An extension for handling dimensions with respect to the screen size for [int] values.
 extension IntDimensionUtilExtension on int {
   /// Converts the value to a width relative to the screen width.
-  double get w => AppDimensions.width * (toDouble() / AppDimensions.width);
+  double get w => AppDimensions.width * this / _width;
 
   /// Converts the value to a height relative to the screen height.
-  double get h => AppDimensions.height * (toDouble() / AppDimensions.height);
+  double get h => AppDimensions.height * this / _height;
 
-  /// Converts the value to its proportional value based on the screen width and height.
+  /// Converts the value to its proportional value based on a reference width of [_width] and height of [_height].
   double get r =>
-      ((AppDimensions.width + AppDimensions.height) * toDouble() / 2) /
-      (AppDimensions.width + AppDimensions.height);
+      AppDimensions.width * this / 2 / (_width) +
+      AppDimensions.height * this / 2 / (_height);
 
   /// Converts the value to a scaled pixel value based on the screen width.
   double get sp => AppDimensions._mediaQuery.textScaleFactor * toDouble();

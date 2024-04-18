@@ -15,6 +15,11 @@ class PrimaryButton extends StatelessWidget {
   final FontWeight? fontWeight;
   final Color? textColor;
 
+  // icon
+  final bool withIcon;
+  final IconData? icon;
+  final Color? iconColor;
+
   const PrimaryButton({
     required this.onTap,
     required this.text,
@@ -28,6 +33,9 @@ class PrimaryButton extends StatelessWidget {
     this.fontWeight,
     this.textColor,
     this.margin,
+    this.withIcon = false,
+    this.icon,
+    this.iconColor,
   });
   @override
   Widget build(BuildContext context) {
@@ -42,14 +50,34 @@ class PrimaryButton extends StatelessWidget {
             color: color ?? AppColors.PRIMARY,
             borderRadius: BorderRadius.circular(borderRadius ?? 12.r),
             border: isBorder ? Border.all(color: AppColors.PRIMARY) : null),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: textColor ?? AppColors.WHITE,
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-          ),
-        ),
+        child: withIcon
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    icon,
+                    color: iconColor,
+                  ),
+                  SizedBox(width: 10.w),
+                  Text(
+                    text,
+                    style: TextStyle(
+                      color: textColor ?? AppColors.WHITE,
+                      fontSize: fontSize,
+                      fontWeight: fontWeight,
+                    ),
+                  ),
+                ],
+              )
+            : Text(
+                text,
+                style: TextStyle(
+                  color: textColor ?? AppColors.WHITE,
+                  fontSize: fontSize,
+                  fontWeight: fontWeight,
+                ),
+              ),
       ),
     );
   }
